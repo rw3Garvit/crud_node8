@@ -39,4 +39,16 @@ let deleteUser = async (req, res) => {
   });
 };
 
-module.exports = { register, getAllusers, deleteUser };
+let updateUser = async (req, res) => {
+  let body = req.body;
+  let { id } = req.params;
+
+  let result = await userService.updateUser(id, body);
+
+  res.status(200).json({
+    message: "user updated sucess",
+    result,
+  });
+};
+
+module.exports = { register, getAllusers, deleteUser, updateUser };

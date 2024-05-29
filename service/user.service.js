@@ -14,4 +14,8 @@ let deleteUser = (id) => {
   return userSchema.findByIdAndDelete(id);
 };
 
-module.exports = { register, findAllUser, deleteUser };
+let updateUser = (id, body) => {
+  return userSchema.findByIdAndUpdate(id, body);
+};
+
+module.exports = { register, findAllUser, deleteUser, updateUser };
