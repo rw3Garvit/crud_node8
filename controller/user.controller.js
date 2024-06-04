@@ -1,18 +1,24 @@
 const { userService } = require("../service");
 
 let register = async (req, res) => {
-  console.log(req.body);
+  try {
+    console.log(req.body);
 
-  let body = req.body;
+    let body = req.body;
 
-  let user = await userService.register(body);
+    let user = await userService.register(body);
 
-  console.log(user, "res");
+    console.log(user, "res");
 
-  res.status(201).json({
-    message: "user register successfully",
-    user,
-  });
+    res.status(201).json({
+      message: "user register successfully",
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 };
 
 let getAllusers = async (req, res) => {
