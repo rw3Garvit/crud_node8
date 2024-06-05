@@ -1,4 +1,5 @@
 const { orderService } = require("../service");
+const sendEmail = require("../service/email.service");
 
 let createOrder = async (req, res) => {
   let body = req.body;
@@ -6,6 +7,8 @@ let createOrder = async (req, res) => {
   console.log(body);
 
   let order = await orderService.createOrder(body);
+
+ 
   res.status(201).json({
     message: "order created success",
     order,

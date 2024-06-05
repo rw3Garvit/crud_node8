@@ -1,4 +1,5 @@
 const { userService } = require("../service");
+const sendEmail = require("../service/email.service");
 
 let register = async (req, res) => {
   try {
@@ -7,6 +8,17 @@ let register = async (req, res) => {
     let body = req.body;
 
     let user = await userService.register(body);
+
+    //email service
+
+    if (user) {
+      let result = await sendEmail(
+        user.email,
+        "this is test mail",
+        `welcome ${user.email}`
+      );
+      console.log(result);
+    }
 
     console.log(user, "res");
 
