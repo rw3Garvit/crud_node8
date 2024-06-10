@@ -11,16 +11,16 @@ let register = async (req, res) => {
 
     //email service
 
-    if (user) {
-      let result = await sendEmail(
-        user.email,
-        "this is test mail",
-        `welcome ${user.email}`
-      );
-      console.log(result);
-    }
+    // if (user) {
+    //   let result = await sendEmail(
+    //     user.email,
+    //     "this is test mail",
+    //     `welcome ${user.email}`
+    //   );
+    //   console.log(result);
+    // }
 
-    console.log(user, "res");
+    // console.log(user, "res");
 
     res.status(201).json({
       message: "user register successfully",
@@ -69,4 +69,29 @@ let updateUser = async (req, res) => {
   });
 };
 
-module.exports = { register, getAllusers, deleteUser, updateUser };
+let login = async (req, res) => {
+  try {
+    let { email, password } = req.body;
+
+    let user = await userService.findUser(email);
+    console.log(user, "result");
+
+    if (!user) {
+      throw new Error("user not found!");
+    }
+    if (user.password != password) {
+      throw new Error("password invalid");
+    }
+
+    res.status(200).json({
+      message: "login successfully",
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+module.exports = { register, getAllusers, deleteUser, updateUser, login };

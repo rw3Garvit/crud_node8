@@ -13,4 +13,7 @@ route.put(
   userController.updateUser
 );
 
+//login
+
+route.post("/login", validate(userValidation.user), userController.login);
 module.exports = route;
