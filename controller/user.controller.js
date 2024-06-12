@@ -1,3 +1,4 @@
+const { createToken } = require("../middleware/auth");
 const { userService } = require("../service");
 const sendEmail = require("../service/email.service");
 
@@ -83,9 +84,12 @@ let login = async (req, res) => {
       throw new Error("password invalid");
     }
 
+    let token = createToken({ user });
+    console.log(token);
+
     res.status(200).json({
       message: "login successfully",
-      user,
+      token,
     });
   } catch (err) {
     res.status(500).json({
@@ -94,4 +98,16 @@ let login = async (req, res) => {
   }
 };
 
-module.exports = { register, getAllusers, deleteUser, updateUser, login };
+let getProfile = async (req, res) => {
+  res.status(200).json({
+    message: "profile get success",
+  });
+};
+module.exports = {
+  register,
+  getAllusers,
+  deleteUser,
+  updateUser,
+  login,
+  getProfile,
+};

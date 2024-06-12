@@ -16,4 +16,6 @@ route.put(
 //login
 
 route.post("/login", validate(userValidation.user), userController.login);
+
+route.get('/profile',userController.getProfile)
 module.exports = route;
