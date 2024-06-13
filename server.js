@@ -4,7 +4,12 @@ let express = require("express");
 let dbConnect = require("./db/dbConnect");
 let routes = require("./routes");
 let cors = require("cors");
+const cookieParser = require("cookie-parser");
+const { isLogin } = require("./middleware/auth");
 let app = express();
+
+//cookies
+app.use(cookieParser());
 
 //cors
 app.use(
@@ -13,12 +18,18 @@ app.use(
   })
 );
 
+app.set("view engine", "ejs");
+
 //body
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
 app.use("/v1", routes);
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 //database connection
 dbConnect();

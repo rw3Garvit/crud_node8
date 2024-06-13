@@ -87,9 +87,10 @@ let login = async (req, res) => {
     let token = createToken({ user });
     console.log(token);
 
+    res.cookie("token", token);
+
     res.status(200).json({
       message: "login successfully",
-      token,
     });
   } catch (err) {
     res.status(500).json({
@@ -99,8 +100,10 @@ let login = async (req, res) => {
 };
 
 let getProfile = async (req, res) => {
+  let user = req.user;
   res.status(200).json({
     message: "profile get success",
+    user,
   });
 };
 module.exports = {
