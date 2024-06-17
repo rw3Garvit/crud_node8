@@ -23,4 +23,14 @@ let isLogin = (req, res, next) => {
   }
 };
 
-module.exports = { createToken, isLogin };
+let isRestrict = ([...role]) => {
+  return (req, res, next) => {
+    if (role.includes(req.user.user.role)) {
+      next();
+    } else {
+      throw new Error("user not allowed");
+    }
+  };
+};
+
+module.exports = { createToken, isLogin, isRestrict };

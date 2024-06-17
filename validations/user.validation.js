@@ -4,10 +4,8 @@ let user = {
   body: Joi.object().keys({
     email: Joi.string().required().trim(),
     password: Joi.string().required().trim(),
+    role: Joi.string().trim(),
   }),
 };
-
-
-
 
 module.exports = { user };
